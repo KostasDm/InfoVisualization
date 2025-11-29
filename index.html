@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Peak Emission Hours Distribution</title>
+<script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+
+<link rel="stylesheet" type="text/css" href="./style.css">
+
+</head>
+<body>
+
+<h2>Boxplot of daily first emission peak time for different air pollutants in the US</h2>
+
+<div class="dropdown-row">
+    <div>
+        <label>State</label><br>
+        <select id="stateDropdown"></select>
+    </div>
+    <div>
+        <label>City</label><br>
+        <select id="cityDropdown"></select>
+    </div>
+    <div>
+        <label>Pollutant</label><br>
+        <select id="pollutantDropdown">
+            <option value="All">All</option>
+            <option value="O3 1st Max Hour">O3 1st Max Hour</option>
+            <option value="CO 1st Max Hour">CO 1st Max Hour</option>
+            <option value="SO2 1st Max Hour">SO2 1st Max Hour</option>
+            <option value="NO2 1st Max Hour">NO2 1st Max Hour</option>
+        </select>
+    </div>
+    
+    <div id="tooltip" 
+     style="
+        position: absolute;
+        padding: 8px;
+        background: white;
+        border: 1px solid #aaa;
+        border-radius: 4px;
+        pointer-events: none;
+        opacity: 0;
+        font-size: 13px;
+     ">
+</div>
+
+</div>
+
+
+<svg id="chart" width="900" height="600"></svg>
+<script src="./script.js"></script>
+</body>
+</html>
+

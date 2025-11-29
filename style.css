@@ -1,0 +1,16 @@
+body {
+        font-family: 'Arial', sans-serif; 
+        margin: 40px;
+    }
+    .dropdown-row {
+        margin-bottom: 20px;
+        display: flex;
+        gap: 20px;
+    }
+    select {
+        padding: 5px;
+        font-size: 14px;
+    }
+    svg {
+        border: 1px solid #aaa;
+    }
