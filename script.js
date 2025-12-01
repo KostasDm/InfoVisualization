@@ -1,5 +1,10 @@
+// The implementation of code was based on the knowledge from the tutorial videos on TUWEL,
+// the examples in the material that is uploaded on TUWEL
+// and the textbook "Learn D3.js" from Helder da Rocha
+
 d3.csv("pollution_2000_2023.csv").then(function(data){
    
+    console.log(data)
     // Create object datetime and extract year
     data.forEach(d => {
         d.Date = new Date(d.Date);
@@ -21,10 +26,10 @@ d3.csv("pollution_2000_2023.csv").then(function(data){
     console.log("States:", states);
 
     state_select.selectAll("option")
-        .data(states)
-        .join("option")
-        .text(d => d)
-        .attr("value", d => d);
+                .data(states)
+                .join("option")
+                .text(d => d)
+                .attr("value", d => d);
 
     // update cities dropdown based on selected state
     function update_cities(state){
@@ -37,10 +42,10 @@ d3.csv("pollution_2000_2023.csv").then(function(data){
         // clear previous selection
         city_selected.selectAll("option").remove();
         city_selected.selectAll("option")
-            .data(cities)
-            .join("option")
-            .text(d => d)
-            .attr("value", d => d);
+                     .data(cities)
+                     .join("option")
+                     .text(d => d)
+                     .attr("value", d => d);
     }
 
     update_cities(states[0]);
@@ -101,6 +106,9 @@ d3.csv("pollution_2000_2023.csv").then(function(data){
         // group pollutants inside each year when to be displayed side by side
         const x2 = d3.scaleBand().domain(pollutants).range([0, x.bandwidth()]).padding(0.2);
         
+        // to debug this part with definition of x2 for placing the boxes of different gases next to each other
+        // the help of AI was used.
+        
         // for debuggin x2
         //pollutants.forEach(p => {
         //                   console.log(p, "->", x2(p));
@@ -115,19 +123,19 @@ d3.csv("pollution_2000_2023.csv").then(function(data){
         g.append("g").call(d3.axisLeft(y));
 
         g.append("text")
-                  .attr("transform", "rotate(-90)")   
-                  .attr("y", -30)
-                  .attr("x", -height / 2) 
-                  .style("text-anchor", "middle")
-                  .style("font-size", "13px")
-                  .text("1st peak emmision hour"); 
+         .attr("transform", "rotate(-90)")   
+         .attr("y", -30)
+         .attr("x", -height / 2) 
+         .style("text-anchor", "middle")
+         .style("font-size", "13px")
+         .text("1st peak emmision hour"); 
 
         g.append("text")  
-                  .attr("x", width / 2)                         
-                  .attr("y", height +35)
-                  .style("text-anchor", "middle")
-                  .style("font-size", "13px")
-                  .text("Year");   
+         .attr("x", width / 2)                         
+         .attr("y", height +35)
+         .style("text-anchor", "middle")
+         .style("font-size", "13px")
+         .text("Year");   
 
         data_map.forEach((poll_data, year)=>{
             poll_data.forEach((rows, pollutant)=>{
@@ -137,15 +145,15 @@ d3.csv("pollution_2000_2023.csv").then(function(data){
                 console.log(stats);
                 // Create box
                 g.append("rect")
-                    .attr("x", xpos)
-                    .attr("y", y(stats.q3)) // y is upper box limit aka q3
-                    .attr("width", x2.bandwidth()) // width of x2
-                    .attr("height", y(stats.q1)-y(stats.q3))
-                    .attr("fill", pollutantColors[pollutant]) // fill with color based on pollutant
-                    .attr("opacity",0.5)
-                    .on("mouseover",(event)=>{
-                        drawHistogram(values, pollutant, year); // if hoover over box, update histogram on bottom and show stats
-                        tooltip.style("opacity",1)
+                 .attr("x", xpos)
+                 .attr("y", y(stats.q3)) // y is upper box limit aka q3
+                 .attr("width", x2.bandwidth()) // width of x2
+                 .attr("height", y(stats.q1)-y(stats.q3))
+                 .attr("fill", pollutantColors[pollutant]) // fill with color based on pollutant
+                 .attr("opacity",0.5)
+                 .on("mouseover",(event)=>{
+                      drawHistogram(values, pollutant, year); // if hoover over box, update histogram on bottom and show stats
+                      tooltip.style("opacity",1)
                             .html(`
                                 <b>${pollutant} - ${year}</b><br>
                                 Q1: ${stats.q1}<br>
@@ -158,38 +166,38 @@ d3.csv("pollution_2000_2023.csv").then(function(data){
                             .style("left",(event.pageX+10)+"px")
                             .style("top",(event.pageY-20)+"px");
                     })
-                    .on("mousemove",(event)=>{
+                 .on("mousemove",(event)=>{
                         tooltip.style("left",(event.pageX+10)+"px")
                                .style("top",(event.pageY-25)+"px");
                     })
-                    .on("mouseout",()=>{
+                 .on("mouseout",()=>{
                         tooltip.style("opacity",0); // if move mouse away, then hide display
                     });
 
                 // Median line
                 g.append("line")
-                    .attr("x1", xpos)
-                    .attr("x2", xpos + x2.bandwidth())
-                    .attr("y1", y(stats.median))
-                    .attr("y2", y(stats.median))
-                    .attr("stroke","black")
-                    .attr("stroke-width",2);
+                 .attr("x1", xpos)
+                 .attr("x2", xpos + x2.bandwidth())
+                 .attr("y1", y(stats.median))
+                 .attr("y2", y(stats.median))
+                 .attr("stroke","black")
+                 .attr("stroke-width",2);
 
                 // Whiskers
                 g.append("line")
-                    .attr("x1", xpos + x2.bandwidth()/2)
-                    .attr("x2", xpos + x2.bandwidth()/2)
-                    .attr("y1", y(stats.min))
-                    .attr("y2", y(stats.q1))
-                    .attr("stroke","black")
-                    .attr("stroke-width",1);
+                 .attr("x1", xpos + x2.bandwidth()/2)
+                 .attr("x2", xpos + x2.bandwidth()/2)
+                 .attr("y1", y(stats.min))
+                 .attr("y2", y(stats.q1))
+                 .attr("stroke","black")
+                 .attr("stroke-width",1);
                 g.append("line")
-                    .attr("x1", xpos + x2.bandwidth()/2)
-                    .attr("x2", xpos + x2.bandwidth()/2)
-                    .attr("y1", y(stats.q3))
-                    .attr("y2", y(stats.max))
-                    .attr("stroke","black")
-                    .attr("stroke-width",1);
+                 .attr("x1", xpos + x2.bandwidth()/2)
+                 .attr("x2", xpos + x2.bandwidth()/2)
+                 .attr("y1", y(stats.q3))
+                 .attr("y2", y(stats.max))
+                 .attr("stroke","black")
+                 .attr("stroke-width",1);
             });
         });
     }
