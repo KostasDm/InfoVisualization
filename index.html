@@ -2,15 +2,13 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Peak Emission Hours Distribution</title>
-<script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
-
 <link rel="stylesheet" type="text/css" href="./style.css">
-
 </head>
 <body>
 
-<h2>Boxplot of daily first emission peak time for different air pollutants in the US</h2>
+<h2>Air Pollutant Peak Hour Analysis in the US</h2>
 
 <div class="dropdown-row">
     <div>
@@ -22,7 +20,7 @@
         <select id="cityDropdown"></select>
     </div>
     <div>
-        <label>Pollutant</label><br>
+        <label>Pollutant's 1st peak time</label><br>
         <select id="pollutantDropdown">
             <option value="All">All</option>
             <option value="O3 1st Max Hour">O3 1st Max Hour</option>
@@ -31,24 +29,17 @@
             <option value="NO2 1st Max Hour">NO2 1st Max Hour</option>
         </select>
     </div>
-    
-    <div id="tooltip" 
-     style="
-        position: absolute;
-        padding: 8px;
-        background: white;
-        border: 1px solid #aaa;
-        border-radius: 4px;
-        pointer-events: none;
-        opacity: 0;
-        font-size: 13px;
-     ">
 </div>
 
-</div>
+<div id="tooltip" class="tooltip"></div>
 
+<h3>Boxplot of daily peak hours in the US</h3>
+<svg id="boxplot" width="1000" height="450"></svg>
 
-<svg id="chart" width="900" height="600"></svg>
+<h3>Histogram (based on mouse hoovering over boxes)</h3>
+<svg id="histogram" width="1000" height="250"></svg>
+
+<script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
 <script src="./script.js"></script>
 </body>
 </html>
