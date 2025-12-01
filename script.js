@@ -120,7 +120,7 @@ d3.csv("pollution_2000_2023.csv").then(function(data){
                   .attr("x", -height / 2) 
                   .style("text-anchor", "middle")
                   .style("font-size", "13px")
-                  .text("Peak emmision hour"); 
+                  .text("1st peak emmision hour"); 
 
         g.append("text")  
                   .attr("x", width / 2)                         
@@ -217,7 +217,7 @@ d3.csv("pollution_2000_2023.csv").then(function(data){
                   .attr("y", height +35)
                   .style("text-anchor", "middle")
                   .style("font-size", "13px")
-                  .text("Peak emmision hour");     
+                  .text("1st peak emmision hour");     
 
         const hist_yaxis =g.append("g").call(d3.axisLeft(y));
 
